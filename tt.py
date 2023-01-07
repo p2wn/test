@@ -8,7 +8,7 @@ def scrape(url):
             if len(x) > 5 and ":" in x:
                 l.append(x.replace("\n", ""))
     except:
-        print("Error: invalid url")
+        print("Error while sending request.")
 if len(sys.argv) > 1:
     scrape(str(sys.argv[1]))
     file = open("scraped.txt", "w")
