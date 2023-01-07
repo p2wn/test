@@ -1,15 +1,17 @@
-import threading, socket, sys
+import requests, sys
 
-def get():
-    while True:
-         try:
-             host = str(sys.argv[1])
-             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-             s.connect((host, 80))
-             s.send(f'GET / HTTP/1.1\r\nHost:{host}\r\n\r\n'.encode() * 256)
-         except KeyboardInterrupt:
-             sys.exit(-1)
-         except:
-             pass
-for i in range(0, 75):
-    threading.Thread(target=get).start()
+l = []
+def scrape(url):
+    try:
+        text = requests.get(url).text
+        for x in text.split("\n"):
+            if len(x) > 5 and ":" in x:
+                l.append(x.replace("\n", ""))
+    except:
+        print("Error: invalid url")
+if len(sys.argv) > 1:
+    scrape(str(sys.argv[1]))
+    file = open("scraped.txt", "w")
+    file.write("\n".join(l))
+else:
+    print("Error: provide an url")
