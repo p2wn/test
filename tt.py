@@ -13,5 +13,6 @@ if len(sys.argv) > 1:
     scrape(str(sys.argv[1]))
     file = open("scraped.txt", "w")
     file.write("\n".join(l))
+    file.close()
 else:
     print("Error: provide an url")
